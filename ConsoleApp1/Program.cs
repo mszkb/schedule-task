@@ -77,9 +77,11 @@ public class Scheduler
 
                 try
                 {
-                    await Task.Delay(TimeSpan.FromMilliseconds(interval));
+                    var randomInterval = interval + RandomNess(interval);
+                    
+                    await Task.Delay(TimeSpan.FromMilliseconds(randomInterval));
                     task.Calculate();
-                    await Task.Delay(TimeSpan.FromMilliseconds(interval));
+                    await Task.Delay(TimeSpan.FromMilliseconds(randomInterval));
                 }
                 finally
                 {
@@ -91,6 +93,11 @@ public class Scheduler
 
             Timers.Add(timer);
         }
+    }
+
+    private double RandomNess(double interval)
+    {
+        return Random.Shared.Next(0, (int)interval + 100);
     }
 
     /// <summary>
