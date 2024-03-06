@@ -64,6 +64,9 @@ public class Scheduler
 
     public void Start()
     {
+        if (_cpuCores < 1) throw new ArgumentException("CPU cores must be at least 1");
+        if (Tasks.Count < 1) throw new ArgumentException("At least one task must be specified");
+        
         foreach (var task in Tasks)
         {
             // graceful degrade based on the number of tasks and cpu cores
